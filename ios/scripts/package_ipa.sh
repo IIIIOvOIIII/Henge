@@ -12,6 +12,8 @@ TROLLSTORE=false
 OUT="${HENGE_IPA_OUT:-$HOME/Desktop/Henge.ipa}" # HENGE_IPA_OUT: somewhere else (a trial build that must not replace the one on the Desktop)
 [ "$TROLLSTORE" = true ] && OUT="$HOME/Desktop/Henge.tipa"
 [ -d "$IOS/deps/StikJIT.xcframework" ] || "$IOS/scripts/fetch_deps.sh"
+# Prepare guest macOS resources before Xcode supplies its iOS build environment.
+make -C "$IOS/.." build/henge-agent.gz build/tl-samples.dmg
 cd "$IOS"
 xcodegen generate >/dev/null
 DD="$IOS/build/DerivedData"
